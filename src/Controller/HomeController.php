@@ -23,7 +23,7 @@ class HomeController extends AbstractController
             ]);
         }
         else{
-            $this->redirectToRoute('admin.register');
+            return $this->redirectToRoute('admin.register');
         }
     }
 
