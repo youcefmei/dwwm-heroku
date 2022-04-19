@@ -26,11 +26,11 @@ class Course
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[ORM\Column(type: 'string', length: 190, unique: true)]
     #[NotBlank(message:'Veuillez entrer un titre')]
     private $title;
 
-    #[ORM\Column(type: 'string', length: 255, unique: true)]
+    #[ORM\Column(type: 'string', length: 190, unique: true)]
     private $slug;
 
     #[ORM\Column(type: 'text')]
@@ -54,7 +54,7 @@ class Course
     private $sections;
 
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private ?string $image=null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]

@@ -15,7 +15,7 @@ class Question
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $title;
 
     #[ORM\ManyToOne(targetEntity: Teacher::class, inversedBy: 'questions')]
@@ -26,7 +26,7 @@ class Question
     private $answerswrongs;
 
  
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $correct_response;
 
     #[ORM\ManyToOne(targetEntity: Quiz::class, inversedBy: 'questions')]

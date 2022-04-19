@@ -19,10 +19,10 @@ class Admin
     #[Valid]
     private $user;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $firstname;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $lastname;
 
 

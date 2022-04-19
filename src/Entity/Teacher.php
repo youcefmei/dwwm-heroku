@@ -23,10 +23,10 @@ class Teacher
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $firstname;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $lastname;
 
 
@@ -42,7 +42,7 @@ class Teacher
     #[Valid]
     private $user;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $image;
 
     public function __construct()

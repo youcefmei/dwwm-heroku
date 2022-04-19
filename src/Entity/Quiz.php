@@ -15,7 +15,7 @@ class Quiz
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $title;
 
     #[ORM\OneToOne(inversedBy: 'quiz', targetEntity: Section::class, cascade: ['persist', 'remove'])]

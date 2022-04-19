@@ -26,7 +26,7 @@ class Lesson
     #[NotBlank(message:'Veuillez entrer du texte')]
     private $content;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $slug;
 
     #[ORM\Column(type: 'datetime_immutable')]
@@ -39,11 +39,11 @@ class Lesson
     #[ORM\JoinColumn(nullable: true)]
     private $section;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     #[NotBlank(message:'Veuillez entrer un titre')]
     private $title;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     #[NotBlank(message:'Veuillez entrer un lien')]
     private $media;
 

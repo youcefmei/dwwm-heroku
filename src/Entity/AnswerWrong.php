@@ -13,7 +13,7 @@ class AnswerWrong
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 190)]
     private $title;
 
     #[ORM\ManyToOne(targetEntity: Question::class, inversedBy: 'answerswrongs')]
