@@ -97,7 +97,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationAdminFormType::class, $admin);
         $form->handleRequest($request);
 
-        // Only one admin is allow to register 
+        // Only one admin is allow to register
         if (!empty($adminRepo->findAll())) {
             return $this->redirectToRoute("home");
         }
