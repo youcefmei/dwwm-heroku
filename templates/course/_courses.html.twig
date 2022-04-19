@@ -1,0 +1,35 @@
+{% set current_path = app.request.get('_route') %}
+<div class="container mt-5 px-lg-5 px-3 " id="courses">
+    <div class="row">
+        {% block card %}
+        {% for course in courses %}
+        {% include "course/_card.html.twig" %}
+        {% endfor %}
+        {% endblock %}
+    </div>
+
+    
+    <div class="row mt-lg-4 mt-2">
+        <div class="col-12 d-flex align-items-center justify-content-center">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination mt-3">
+                  {% for page in range(0,pages) %}
+                  {# {{ app.request.uri }} #}
+                  {% if personId is defined %}
+                    <li class="page-item"><a class="page-link" href="{{path(current_path,{limit:limit,offset: page * limit,id:personId})}}">{% if page==0 %}Page {% endif %}{{page+1}}</a></li>
+                  {% else %}
+                    <li class="page-item"><a class="page-link" href="{{path(current_path,{limit:limit,offset: page * limit})}}">{% if page==0 %}Page {% endif %}{{page+1}}</a></li>
+                  {% endif %}
+                  {% endfor %}
+                  {% if pages >0 %}
+                    {% if personId is defined %}
+                        <li class="page-item"><a class="page-link" href="{{path(current_path,{limit:limit,offset: offset + limit,id:personId})}}">Suivante</a></li>
+                    {% else %}
+                        <li class="page-item"><a class="page-link" href="{{path(current_path,{limit:limit,offset: offset + limit})}}">Suivante</a></li>
+                    {% endif %}
+                  {% endif %}
+                </ul>
+              </nav>
+        </div>
+    </div>
+</div>

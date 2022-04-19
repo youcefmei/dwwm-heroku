@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="copyright" content="EcoIT" />
+    <meta name="description"
+        content="Eco It est un organisme de formation qui a pour but d'aider les développeurs à réduire leur empreinte écologique. ">
+    <title>{% block title %}EcoIT | Des formations informatiques éco-responsables{% endblock %}</title>
+    <link rel="icon" href="{{asset("images/icons/favicon-16x16.png")}}">
+       
+    
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+    {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+
+<body>
+
+    {% set teacher = app.user is not null ?  app.user.teacher:null %}
+    {% set admin = app.user is not null ?  app.user.admin:null %}
+    {% set student = app.user is not null ?  app.user.student:null %}
+    {% if allow is not defined %}
+    {% set allow = false %}
+    {% endif %}
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light w-100 mt-auto position-relative">
+            <div class="container-fluid">
+                <a class="ms-3 mt-auto" href="{{path('home')}}"><img class="logo" src="/img/eco_it_logo.png" alt=""></a>
+
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse align-self-end" id="navbarNavDropdown">
+                    <ul class="navbar-nav mx-auto mt-4 mt-lg-0 ">
+                        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            
+                            <li class="nav-item authentification ">
+                                <ul class="navbar-nav ms-auto flex-row  w-100 ">
+                                    <li class="nav-item position-relative col-6 col-lg-auto ">
+                                        <a class="nav-link fs-6 text-center {% if app.request.attributes.get('_route') starts with 'login' %}active{% endif %}"
+                                            href="{{path('logout')}}">
+                                            <span class="bi bi-box-arrow-in-left"></span>
+                                                                                           SE DECONNECTER</a>
+                                    </li>
+                                    {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_TEACHER')   %}
+                                        <li class="nav-item mx-4 position-relative col-6 col-lg-auto">
+                                            <a class="nav-link fs-6 text-center {% if app.request.attributes.get('_route') starts with 'student.register' %}active{% endif %}"
+                                                href="{{path('admin')}}"><span class="bi bi-gear"></span> ADMINISTRATION</a>
+                                        </li>
+                                    {% else %}
+                                    {# empty column #}
+                                        <li class="nav-item mx-4 position-relative col-6 col-lg-auto">
+                                            
+                                        </li>
+                                    {% endif %}
+
+                                    
+                                </ul>
+                            </li>
+
+                            {% else %}
+
+                            <li class="nav-item authentification ">
+                                <ul class="navbar-nav ms-auto flex-row  w-100 ">
+                                    <li class="nav-item position-relative col-6 col-lg-auto ">
+                                        <a class="nav-link fs-6 text-center {% if app.request.attributes.get('_route') starts with 'login' %}active{% endif %}"
+                                            href="{{path('login')}}"><span class="bi bi-box-arrow-in-right"></span> CONNEXION</a>
+                                    </li>
+                                    <li class="nav-item mx-4 position-relative col-6 col-lg-auto">
+                                        <a class="nav-link fs-6 text-center {% if app.request.attributes.get('_route') starts with 'student.register' %}active{% endif %}"
+                                            href="{{path('student.register')}}">INSCRIPTION</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item position-relative mt-2 mt-lg-0">
+                            <a class="nav-link fs-5 position-relative text-center {% if app.request.attributes.get('_route') == 'home' %}active{% endif %}"
+                                aria-current="page" href="{{path('home')}}">Accueil</a>
+                        </li>
+                        <li class="nav-item ms-xl-4 position-relative">
+                            <a class="nav-link fs-5 position-relative text-center {% if app.request.attributes.get('_route') == 'course' %}active{% endif %}"
+                                href="{{path('course')}}">Formations</a>
+                        </li>
+                        {% if is_granted('ROLE_TEACHER')   %}
+                        <li class="nav-item ms-xl-4 position-relative ">
+                            <a class="nav-link fs-5 text-center {% if app.request.attributes.get('_route') == 'courses.teacher' %}active{% endif %}"
+                                href="{{path('courses.teacher',{id:teacher.id})}}">MES FORMATIONS</a>
+                        </li>
+                        {% elseif is_granted('ROLE_STUDENT') %}
+                        <li class="nav-item ms-xl-4 position-relative ">
+                            <a class="nav-link fs-5 text-center {% if app.request.attributes.get('_route') == 'courses.student' %}active{% endif %}"
+                                href="{{path('courses.student',{id:student.id})}}">MES FORMATIONS</a>
+                        </li>
+                        {% elseif not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            
+                        <li class="nav-item ms-xl-4 position-relative ">
+                            <a class="nav-link fs-5 text-center {% if app.request.attributes.get('_route') == 'teacher.register' %}active{% endif %}"
+                                href="{{path('teacher.register')}}">DEVENIR FORMATEUR</a>
+                        </li>
+                        {% endif %}
+
+                        <li class="nav-item position-relative ms-xl-4">
+                            <a class="nav-link  fs-5 text-nowrap position-relative text-center {% if app.request.attributes.get('_route') == 'about' %}active{% endif %}"
+                                href="{{path('about')}}">A propos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    {% block body %}{% endblock %}
+    <footer class="small">
+        <div class="container py-3 py-sm-5">
+            <div class="row">
+                <div
+                    class="col-12 col-sm-6 col-md-4 d-flex justify-content-center justify-content-lg-start align-items-center flex-column">
+                    <div>
+                        <h6 class="text-center">Plans de site</h6>
+                        <ul class="list-unstyled">
+                            <li class="nav-item text-center"><a class="nav-link px-0" href="{{path('home')}}">Accueil</a></li>
+                            <li class="nav-item text-center"><a class="nav-link px-0" href="{{path('course')}}">Formations</a></li>
+                            {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                            <li class="nav-item text-center"><a class="nav-link px-0" href="{{path('teacher.register')}}">Devenir formateur</a></li>
+                            {% endif %}
+                            <li class="nav-item text-center"><a class="nav-link px-0" href="{{path('about')}}">A propos</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div
+                    class="col-12 col-sm-6 col-md-4 d-flex justify-content-center justify-content-lg-start align-items-center flex-column">
+                    <div>
+                        <h6 class="text-center">Informations</h6>
+                        <ul class=" list-unstyled">
+                            <li class="nav-item text-center"><a class="nav-link px-0 " href="#">Gestion des cookies</a>
+                            </li>
+                            <li class="nav-item text-center"><a class="nav-link px-0" href="#">Politique de
+                                    confidentialité</a></li>
+                            <li class="nav-item text-center">
+                                <a class="nav-link px-0" href="#">Mentions légales</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div
+                    class="col-12 col-sm-6 col-md-4 d-flex justify-content-center justify-content-lg-start align-items-center flex-column">
+                    <div>
+                        <h6>Réseaux sociaux</h6>
+                        <ul class="list-unstyled">
+                            <li class="nav-item text-center"><a class="nav-link px-0" href="#">Facebook</a></li>
+                            <li class="nav-item text-center"><a class="nav-link px-0" href="#">Twitter</a></li>
+                            <li class="nav-item text-center"><a class="nav-link px-0" href="#">Instagram</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 ">
+                    <ul class="list-inline d-flex justify-content-center align-items-center mt-4 ">
+                        <li class="list-inline-item">&copy; EcoIT 2022 Tous droits réservés.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+<!-- and it's easy to individually load additional languages -->
+{# <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.0/languages/go.min.js"></script> #}
+</body>
+
+</html>

@@ -1,0 +1,313 @@
+@import "~bootstrap/scss/bootstrap";
+
+
+// SETTINGS
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;900&display=swap");
+// font-family: 'Roboto', sans-serif;
+// font-family: 'Raleway', sans-serif;
+
+/* https://coolors.co/16302b-694873-8b728e-85b79d-c0e5c8 */
+
+
+$navAuthColor : #e5f3f3;
+$headerShadow : #85b79d;
+$cardShadow:#857e7e;
+$navLinkHover : #f3f3f3;
+$cardBorderAndNavHover : #694873;
+$btnColor: #507D7D;//85b79d
+// $btnColor: #85b79d;//85b79d
+
+// FONTS
+
+// NATIVE ELEMENTS
+* {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.05em;
+  word-break: keep-all;
+}
+
+body {
+  background-color: #fff;
+}
+
+header a,
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Raleway", sans-serif;
+}
+
+h1 {
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+h2 {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: solid 1px;
+  padding-bottom: 1px;
+}
+
+div,a,li{
+  word-break: break-all;
+}
+
+.logo {
+  height: 14vw;
+}
+
+// HEADER
+header {
+  box-shadow: 0px 1px 13px $headerShadow;
+  & li .fs-6 {
+    font-weight: 500;
+  }
+
+  & .authentification li a {
+    letter-spacing: 0.02em;
+    background-color: $navAuthColor;
+  }
+  & li a {
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    display: inline-block;
+    padding: 15px 20px;
+    &:hover {
+      background-color: $navLinkHover;
+    }
+    &:hover:after {
+      width: 100%;
+      left: 0;
+    }
+    &::after {
+      background: none repeat scroll 0 0 transparent;
+      bottom: 0;
+      content: "";
+      display: block;
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      background: $cardBorderAndNavHover;
+      transition: width 0.3s ease 0s, left 0.3s ease 0s;
+      width: 0;
+    }
+  }
+}
+
+// Main
+
+.img-main {
+  border: thin 1px #000;
+  box-shadow: 1px 2px #8b728e;
+}
+
+span.input-group-text{
+  background-color: $btnColor;
+  color:#fff;
+}
+
+.description{
+    height: 23vh;
+}
+
+.video{
+  height: 40vh;
+  & iframe {
+    width:100%;
+    height:100%;
+  }
+} 
+video{
+  height: 40vh;
+  width:100%;
+  height:100%;
+}
+
+.card{
+  border-color: $cardBorderAndNavHover;
+  box-shadow: 1px -2px 4px 1px $cardShadow;
+  width:100%;
+  & img{
+    height: 40vh;
+    width:auto;
+    object-fit: contain; 
+    object-position: center;
+
+  }
+}
+
+fieldset+div{
+    text-align: center;
+}
+
+.nav-item,.nav-link{
+  word-break: break-word;
+}
+
+.btn{
+  background-color: $btnColor; 
+  &:hover{
+    background-color: $cardShadow;
+  }
+}
+
+.lesson-check-form{
+  border: solid 1px $btnColor;
+  border-radius: 8px;
+  &.lesson-complete{
+    background-color: $headerShadow;
+  }
+  // padding: 5px;
+  // background-color: ;
+}
+
+
+//Footer
+
+footer li a {
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  display: inline-block;
+  padding: 15px 20px;
+  color: #000;
+}
+
+// MEDIA QUERIES
+
+@media (min-width: 576px) {
+  .logo {
+    height: 12vw;
+  }
+  .video{
+    height: 30vh;
+  }
+}
+
+@media (min-width: 768px) {
+  .authentification {
+    position: static;
+  }
+  .video{
+    height: 40vh;
+  }
+}
+
+@media (min-width: 992px) {
+  .logo {
+    height: 10vw;
+  }
+
+  .authentification {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+  }
+  .video{
+    height: 45vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  .logo {
+    height: 9vw;
+  }
+}
+
+@media (min-width: 1400px) {
+  .logo {
+    height: 7vw;
+  }
+  .video{
+    height: 50vh;
+  }
+}
+
+
+// Highlight.js theme monokai-sublime.css
+
+code{
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.hljs {
+  background: #23241f;
+  color: #f8f8f2;
+}
+
+.hljs-tag,
+.hljs-subst {
+  color: #f8f8f2;
+}
+
+.hljs-strong,
+.hljs-emphasis {
+  color: #a8a8a2;
+}
+
+.hljs-bullet,
+.hljs-quote,
+.hljs-number,
+.hljs-regexp,
+.hljs-literal,
+.hljs-link {
+  color: #ae81ff;
+}
+
+.hljs-code,
+.hljs-title,
+.hljs-section,
+.hljs-selector-class {
+  color: #a6e22e;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-name,
+.hljs-attr {
+  color: #f92672;
+}
+
+.hljs-symbol,
+.hljs-attribute {
+  color: #66d9ef;
+}
+
+.hljs-params,
+.hljs-title.class_,
+.hljs-class .hljs-title {
+  color: #f8f8f2;
+}
+
+.hljs-string,
+.hljs-type,
+.hljs-built_in,
+.hljs-selector-id,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-variable {
+  color: #e6db74;
+}
+
+.hljs-comment,
+.hljs-deletion,
+.hljs-meta {
+  color: #75715e;
+}
