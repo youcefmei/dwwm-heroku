@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="backup-eco-it.sql\Lesson" table="lesson">
+    <indexes>
+      <index name="IDX_F87474F341807E1D" columns="teacher_id"/>
+      <index name="IDX_F87474F3D823E37A" columns="section_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="section_title_idx" columns="title,section_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="content" type="text" column="content" length="0" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="slug" type="string" column="slug" length="190" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="updateAt" type="datetime_immutable" column="update_at" nullable="false"/>
+    <field name="isPublished" type="boolean" column="is_published" nullable="false">
+      <options>
+        <option name="default">1</option>
+      </options>
+    </field>
+    <field name="title" type="string" column="title" length="190" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="media" type="string" column="media" length="190" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="section" target-entity="Section" fetch="LAZY">
+      <join-columns>
+        <join-column name="section_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="teacher" target-entity="Teacher" fetch="LAZY">
+      <join-columns>
+        <join-column name="teacher_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

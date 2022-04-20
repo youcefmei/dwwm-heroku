@@ -13,6 +13,7 @@ class HomeController extends AbstractController
     #[Route('/', name: 'home')]
     public function index(CourseRepository $courseRepository,UserRepository $userRepository): Response
     {
+        return $this->redirectToRoute('admin.register');
         $users = $userRepository->findAll();
         if ($users){
 

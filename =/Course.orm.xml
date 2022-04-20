@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="backup-eco-it.sql\Course" table="course">
+    <indexes>
+      <index name="IDX_169E6FB941807E1D" columns="teacher_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="UNIQ_169E6FB92B36786B" columns="title"/>
+      <unique-constraint name="UNIQ_169E6FB9989D9B62" columns="slug"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="title" type="string" column="title" length="190" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="slug" type="string" column="slug" length="190" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="description" type="text" column="description" length="0" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="createdAt" type="datetime_immutable" column="created_at" nullable="false"/>
+    <field name="isPublished" type="boolean" column="is_published" nullable="false"/>
+    <field name="image" type="string" column="image" length="190" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="updatedAt" type="datetime_immutable" column="updated_at" nullable="false"/>
+    <field name="publishedAt" type="datetime_immutable" column="published_at" nullable="true"/>
+    <field name="imageSize" type="integer" column="image_size" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <many-to-one field="teacher" target-entity="Teacher" fetch="LAZY">
+      <join-columns>
+        <join-column name="teacher_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

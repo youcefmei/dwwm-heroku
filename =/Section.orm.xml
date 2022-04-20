@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="backup-eco-it.sql\Section" table="section">
+    <indexes>
+      <index name="IDX_2D737AEF41807E1D" columns="teacher_id"/>
+      <index name="IDX_2D737AEF591CC992" columns="course_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="course_title_idx" columns="title,course_id"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="title" type="string" column="title" length="190" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="slug" type="string" column="slug" length="190" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="addedAt" type="datetime_immutable" column="added_at" nullable="true"/>
+    <field name="isPublished" type="boolean" column="is_published" nullable="false"/>
+    <many-to-one field="course" target-entity="Course" fetch="LAZY">
+      <join-columns>
+        <join-column name="course_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="teacher" target-entity="Teacher" fetch="LAZY">
+      <join-columns>
+        <join-column name="teacher_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
