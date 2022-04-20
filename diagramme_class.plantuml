@@ -1,0 +1,139 @@
+
+class User{
+ id : int
+ mail : string
+ password : string
+ created_at: date
+ role[] : array
+}
+
+class Admin{
+ id : int
+ firstname:string
+ lastname:string
+ user: User
+}
+
+class Teacher{
+ id : int
+ user: User
+ firstname : string
+ lastname : string
+ description : string
+ approved_at : date
+ is_approved : boolean
+ image : string
+ image_size : int
+ courses : Course[]
+}
+
+class Student{
+ id
+ user : User
+ username : string 
+ courseStudents[] : CourseStudent
+ lessonStudents[] : LessonStudent
+ quizzes: Quiz[]
+}
+
+Teacher::user *--* User
+Admin::user *--* User
+Student::user *--* User
+
+Student::courseStudents o--* CourseStudent
+Student::lessonStudents o--* LessonStudent
+Student::quizzes o--* Quiz
+
+
+class Course{
+ id: int
+ title : string
+ slug: string
+ description : string 
+ created_at : Date
+ published_at : Date
+ published_at : Date
+ is_published : boolean
+ image_size : int
+ image : string
+ sections : Section[]
+ courseStudents : CourseStudent[]
+ teacher : Teacher 
+}
+
+'Teacher::courses o--Course
+Course::teacher *--* Teacher
+
+CourseStudent::course *--* Course
+CourseStudent::student *--* Student
+'Course::courseStudents *--* CourseStudent
+
+class Section{
+ id : int
+ title : string
+ slug: string
+ created_at : Date
+ is_published : boolean
+ lessons : Lesson[]
+ quiz : Quiz | null
+}
+
+Course::sections *-- Section
+
+class Lesson{
+ id : int
+ content : string
+ slug: string
+ media: string
+ created_at : Date
+ update_at : Date
+ is_published :boolean
+
+}
+
+Section::lessons *-- Lesson
+
+
+class Quiz{
+ id : int
+ section : Section
+ title : string
+ slug :string
+ questions : Question[]
+}
+
+class Question{
+ id : int
+ title : string
+ response : string
+ answersWrongs : AnswerWrong[]	
+ 
+}
+
+class AnswerWrong{
+ id : int
+ question : Question
+ title : string
+}
+
+class CourseStudent{
+  id : int
+  course : Course
+  student : Student
+  joined_at : Date
+  progress : int
+}
+
+class LessonStudent{
+	id : int
+	lesson : Lesson
+	student : Student
+}
+
+
+
+Section::quiz o---* Quiz
+Quiz::questions *---* Question
+Question::answersWrongs *---* AnswerWrong
+
+

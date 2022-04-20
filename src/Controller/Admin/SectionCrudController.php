@@ -114,7 +114,7 @@ class SectionCrudController extends AbstractCrudController
         
     }
 
-    private function entityCommon(EntityManagerInterface $entityManager,Section $section):Section
+    private function entityCommon(EntityManagerInterface $entityManager,Section $section,bool $isNew):Section
     {
         /** @var Section $section */
         $slug = (new AsciiSlugger())->slug( strtolower($section->getTitle()) );
@@ -122,6 +122,9 @@ class SectionCrudController extends AbstractCrudController
         
         foreach ($section->getLessons() as $lesson) {
             $lesson->setTeacher($this->teacher);
+            // if($isNew){
+            //     $lesson->setContent(' ');
+            // }
             $entityManager->persist($lesson);
         }
         // dd($section);
@@ -132,7 +135,7 @@ class SectionCrudController extends AbstractCrudController
     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         /** @var Section $section */
-        $section = $this->entityCommon($entityManager,$entityInstance);
+        $section = $this->entityCommon($entityManager,$entityInstance,true);
         $section->setAddedAt(new \DateTimeImmutable()) ;
         $section->setTeacher($this->teacher);
         parent::persistEntity($entityManager, $section);
@@ -141,7 +144,7 @@ class SectionCrudController extends AbstractCrudController
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         /** @var Section $section */
-        $section = $this->entityCommon($entityManager,$entityInstance);
+        $section = $this->entityCommon($entityManager,$entityInstance,false);
         $section->setSlug((new AsciiSlugger())->slug($section->getTitle())) ;
         parent::persistEntity($entityManager, $section);
     }

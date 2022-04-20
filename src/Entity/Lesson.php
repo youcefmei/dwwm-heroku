@@ -59,6 +59,7 @@ class Lesson
     public function __construct()
     {
         $this->update_at = new \DateTimeImmutable();
+        $this->content = ' ';
         $this->lessonStudents = new ArrayCollection();
     }
 
