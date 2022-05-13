@@ -10,7 +10,6 @@ Site de l'organisme de formation fictif EcoIt.
 * Apache ( Xampp, Lamp ...)
 
 
-
 ## Deploiement local
 
 ### Installation

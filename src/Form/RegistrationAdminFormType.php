@@ -29,7 +29,6 @@ class RegistrationAdminFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez entrer un nom.',
                     ]),
-
                 ],
             ],)
             ->add('firstname', TextType::class, [

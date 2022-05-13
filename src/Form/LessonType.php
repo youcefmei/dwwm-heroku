@@ -19,11 +19,6 @@ class LessonType extends AbstractType
                     'message' => 'Veuillez entrer un titre.',
                 ]),
             ]])
-            // ->add('content', CKEditorType::class,['label'=>"Contenu (Edition temporaire simple)",'attr'=>['class'=>'d-none'],'constraints' => [
-            //     new NotBlank([
-            //         'message' => 'Veuillez entrer du texte.',
-            //     ]),
-            // ]])
             ->add('media',options:['label'=>"Video",'constraints' => [
                 new NotBlank([
                     'message' => 'Veuillez entrer un lien.',
