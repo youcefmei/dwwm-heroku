@@ -45,9 +45,7 @@ class CourseController extends AbstractController
         // courses
         $searching = $request->query->get("s");
         if (is_null($searching)){
-            $courses = $courseRepository->findBy(["is_published"=>true],$orderBy=['published_at'=>'desc'],$limit=$limit,$offset = $offset); 
-                        
-            // dd($courses);
+            $courses = $courseRepository->findBy(["is_published"=>true],$orderBy=['published_at'=>'desc'],$limit=$limit,$offset = $offset);                 
             return $this->render('course/index.html.twig', [
                 'mainTitle'=> "NOTRE CATALOGUE",
                 'courses' => $courses,
@@ -186,8 +184,9 @@ class CourseController extends AbstractController
      * 
      */
     #[Route('/formations/etudiant/{id<\d+>}', name: 'courses.student')]
-    public function studentCourses(Student $student,Request $request,ManagerRegistry $doctrine): Response
+    public function studentCourses(Student $student,ManagerRegistry $doctrine,Request $request): Response
     {
+        $courseRepository = $doctrine->getRepository(Course::class);
         if ($student->getUser()==$this->getUser()){
             //Pagination
             $courseStudents = $student->getCourseStudents();
@@ -198,9 +197,7 @@ class CourseController extends AbstractController
             $searching = $request->query->get("s");
             $courses =[];
             $coursesCompleted =[];
-            // dd($courseStudents);
             if (is_null($searching)){
-                
                 foreach ($courseStudents as $courseStudent) {
                     $courses[] = $courseStudent->getCourse();
                     if ($courseStudent->getProgress()===100){
@@ -223,9 +220,10 @@ class CourseController extends AbstractController
                     if ($courseStudent->getProgress()===100){
                         $coursesCompleted[] = $courseStudent->getCourse();
                     }
-                    if (str_contains($courseStudent->getCourse() , $searching) ){
-                        $courses[] = $courseStudent->getCourse();
-                    }
+                    $courseId = $courseStudent->getCourse()->getId();
+                        if ((!is_null($courseId)) and (str_contains(strtolower($courseStudent->getCourse()->getTitle()) , $searching) ) ){
+                            $courses[] = $courseStudent->getCourse();                             
+                        }
                 }
                 return $this->render('course/_courses.html.twig', [
                     'mainTitle'=> "Mes Formations",
@@ -266,6 +264,4 @@ class CourseController extends AbstractController
         $pagination['pages'] = $pages;
         return $pagination;
     }
-
-
 }
