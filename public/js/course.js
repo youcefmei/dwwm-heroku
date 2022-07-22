@@ -1,8 +1,8 @@
 let courseBlock = document.getElementById("courses")
 let searchCourse = document.getElementById("search-courses")
-var previousUrl = window.location.href
+let previousUrl = window.location.href
 searchCourse.addEventListener("input", (e) => {
-  var url = new URL(previousUrl)
+  let url = new URL(previousUrl)
   const urlSearchParams = new URLSearchParams(window.location.search)
   urlSearchParams.set("s", searchCourse.value)
   url.search = urlSearchParams.toString()
@@ -30,34 +30,28 @@ searchCourse.addEventListener("input", (e) => {
 let selectInProgessCompleted = document.getElementById(
   "select-inprogress-completed"
 )
-// let cardCourses = document.getElementsByClassName("card-course")
 
-selectInProgessCompleted.addEventListener("change", (e) => {
-  let cardCourses = document.getElementsByClassName("card-course")
-  // let completedCourses = document.querySelectorAll("completed-course")
-  // let inProgessCourses = document.querySelectorAll("inprogress-course")
-  for (const card of cardCourses) {
-    // card.classList.toggle("d-none")
-    if (e.target.value == "inprogress") {
-      if (card.querySelector(".inprogress-course")) {
-        card.classList.remove("d-none")
+if (selectInProgessCompleted){
+  selectInProgessCompleted.addEventListener("change", (e) => {
+    let cardCourses = document.getElementsByClassName("card-course")
+    for (const card of cardCourses) {
+      // card.classList.toggle("d-none")
+      if (e.target.value == "inprogress") {
+        if (card.querySelector(".inprogress-course")) {
+          card.classList.remove("d-none")
+        } else {
+          card.classList.add("d-none")
+        }
+      } else if (e.target.value == "completed") {
+        if (card.querySelector(".completed-course")) {
+          card.classList.remove("d-none")
+        } else {
+          card.classList.add("d-none")
+        }
       } else {
-        card.classList.add("d-none")
-      }
-    } else if (e.target.value == "completed") {
-      if (card.querySelector(".completed-course")) {
         card.classList.remove("d-none")
-      } else {
-        card.classList.add("d-none")
       }
-    } else {
-      card.classList.remove("d-none")
     }
-    // console.log(card.querySelector(".inprogress-course"))
-    // card.querySelector(".inprogress-course")
-    // card.gete
-  }
-  // if (e.target.value == "inprogress") {
-  // } else if (e.target.value == "complete") {
-  // }
-})
+  })
+}
+
