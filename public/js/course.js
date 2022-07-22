@@ -31,7 +31,7 @@ let selectInProgessCompleted = document.getElementById(
   "select-inprogress-completed"
 )
 
-if (selectInProgessCompleted){
+if (selectInProgessCompleted) {
   selectInProgessCompleted.addEventListener("change", (e) => {
     let cardCourses = document.getElementsByClassName("card-course")
     for (const card of cardCourses) {
@@ -54,4 +54,3 @@ if (selectInProgessCompleted){
     }
   })
 }
-
